@@ -73,20 +73,30 @@ class Bubble:
         self.start_time = time.time()
         self.active = False
 
-# Apply the underwater effect with floating bubbles
+# Apply the underwater effect with floating bubbles, blue tint, and wave distortion
 def add_underwater_effect(frame, bubbles, bubble_png, time_factor):
-    overlay = frame.copy()
-    overlay[:, :, 0] = cv2.addWeighted(overlay[:, :, 0], 1, np.full_like(overlay[:, :, 0], 50), 0.5, 0)  # Blue
-    overlay[:, :, 1] = cv2.addWeighted(overlay[:, :, 1], 1, np.full_like(overlay[:, :, 1], 30), 0.5, 0)  # Green
-    frame = cv2.addWeighted(frame, 0.7, overlay, 0.3, 0)
-
+    #fungsi efek distorsi laut 
     rows, cols, _ = frame.shape
     distortion_map_x = np.tile(np.linspace(0, cols - 1, cols), (rows, 1)).astype(np.float32)
     distortion_map_y = np.tile(np.linspace(0, rows - 1, rows), (cols, 1)).T.astype(np.float32)
-    random_shift = random.uniform(-5, 5)
-    sinusoid = 10 * np.sin(2 * np.pi * (distortion_map_y / 180 + time_factor) + random_shift).astype(np.float32)
-    distortion_map_x += sinusoid
 
+    random_shift = random.uniform(-5, 5)
+
+    sinusoid_x = 1 * np.sin((distortion_map_y / 100 + time_factor) + random_shift).astype(np.float32)
+    sinusoid_y = 1 * np.sin((distortion_map_x / 50 + time_factor) + random_shift).astype(np.float32)
+
+    distortion_map_x += sinusoid_x
+    distortion_map_y += sinusoid_y
+    
+    frame = cv2.remap(frame, distortion_map_x, distortion_map_y, cv2.INTER_LINEAR)
+
+    #fungsi efect biru laut 
+    ocean_blue = frame.copy()
+    ocean_blue[:, :, 0] = cv2.add(ocean_blue[:, :, 0], 50)  
+    ocean_blue[:, :, 1] = cv2.add(ocean_blue[:, :, 1], 20)  
+    ocean_blue[:, :, 2] = cv2.subtract(ocean_blue[:, :, 2], 10)
+    frame = ocean_blue.copy()
+    
     for bubble in bubbles:
         bubble.move()
         if bubble.active:
@@ -95,11 +105,35 @@ def add_underwater_effect(frame, bubbles, bubble_png, time_factor):
     frame = cv2.GaussianBlur(frame, (5, 5), 0)
     return frame
 
-# Fungsi menambah background underwater
-def add_background(frame, image_background):
+#Fungsi untuk load video background
+def video():
+    background_video = cv2.VideoCapture('video3.mp4')
+
+    #Mencheck apakah video bisa dibuka atau tidak
+    if not background_video.isOpened():
+        print("Tidak bisa membuka video!")
+        return None
+    return background_video
+
+# Fungsi untuk mendapatkan frame video
+def video_frame(background_video, frame_shape):
+    success, bg_frame = background_video.read()
+    
+    #Membaca frame satu persatu sampai selesai 
+    if not success:
+        background_video.set(cv2.CAP_PROP_POS_FRAMES, 0)
+        success, bg_frame = background_video.read()
+    
+    # Resize frame video agar sesuai dengan ukuran frame kamera
+    bg_frame = cv2.resize(bg_frame, (frame_shape[1], frame_shape[0]))
+    
+    return bg_frame
+
+# Fungsi menambah background
+def add_background(frame, video_background):
 
     #Resize background agar sesuai dengan ukuran frame
-    background_resized = cv2.resize(image_background, (frame.shape[1], frame.shape[0]))
+    background_resized = cv2.resize(video_background, (frame.shape[1], frame.shape[0]))
     
     #Membuat mask untuk menngambil objek dengaan background
     mask = np.zeros(frame.shape[:2], dtype=np.uint8)
@@ -122,7 +156,7 @@ def add_background(frame, image_background):
     
     return frame_final.astype(np.uint8)
 
-# Fungsi utama untuk menjalankan face mesh dengan deteksi mulut, efek gelembung, backgorund, dan efek underwater
+# Fungsi utama untuk menjalankan face mesh dengan deteksi mulut, efek gelembung, backgorund, dan efek suara
 def face_mesh_mouth_detection_with_bubbles():
     cap = cv2.VideoCapture(0)
     
@@ -130,25 +164,26 @@ def face_mesh_mouth_detection_with_bubbles():
         print("Gagal membuka kamera!")
         return
     
-    #Ambil gambar background dan gelembung
-    image_background = cv2.imread('sea.jpg')  
     bubble_png = cv2.imread('gelembung2.png', cv2.IMREAD_UNCHANGED)
+    background_video = video()
+    frame_shape = (480, 640, 3)  # Assuming a default frame shape, adjust as needed
     
     bubbles = [Bubble(random.randint(0, 640), random.randint(480, 500), 
                random.randint(5, 15), random.uniform(0.5, 3)) for _ in range(30)]
     time_factor = 0
     last_bubble_time = 0
-    bubble_delay = 1
+    bubble_delay = 0.5
     
     while cap.isOpened():
         success, frame = cap.read()
         if not success:
             print("Gagal membaca frame!")
             break
-            
+
         frame = cv2.flip(frame, 1)
         
-        frame_with_bg = add_background(frame, image_background)
+        bg_frame = video_frame(background_video, frame_shape)
+        frame_with_bg = add_background(frame, bg_frame)
 
         frame_rgb = cv2.cvtColor(frame_with_bg, cv2.COLOR_BGR2RGB)
         results = face_mesh.process(frame_rgb)
