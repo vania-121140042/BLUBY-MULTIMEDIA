@@ -14,7 +14,7 @@ BLUBY adalah filter video yang terinspirasi oleh suasana bawah laut, menghadirka
 - MediaPipe: Untuk mendeteksi wajah secara real-time.
 - Pydub: Untuk pemrosesan background suara.
 
-## Fitur UTAMA 
+## Fitur Utama 
 **1. Efek Visual:**
 - Underwater effect, layaknya di dasar laut. Terdapat distorsi visual seperti gelombang air yang melengkung. 
 - Overlay partikel gelembung yang mengikuti gerakan wajah atau tubuh pengguna (dengan MediaPipe atau OpenCV).
@@ -26,9 +26,10 @@ BLUBY adalah filter video yang terinspirasi oleh suasana bawah laut, menghadirka
 **3. Interaksi Real-Time:**
 - Input video dari webcam. 
 
-## Hasil AKHIR 
+## Hasil Akhir
 Filter video secara realtime dengan nuansa bawah laut yang menenangkan, efek visual yang dinamis, dan audio yang harmonis.
 
-# Instruksi instalasi 
+# Instruksi instalasi
+
 
 
