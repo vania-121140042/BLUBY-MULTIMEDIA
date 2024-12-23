@@ -2,11 +2,11 @@
 **BLUBY – Oceanic Video Filter** 
 
 ## Anggota Kelompok 
-|         Nama Anggota      |    Nim    |  ID Github  |
-|---------------------------|-----------|-------------|
-| Vania Angelica Kusuma P.N | 121140042 |             |
-| Natasya Ate Malem Bangun  | 121140052 |             |
-| Marchell Aly Kumala       | 121140145 |             |
+|         Nama Anggota      |    Nim    |         ID Github       |
+|---------------------------|-----------|------------------------ |
+| Vania Angelica Kusuma P.N | 121140042 | vania angelica_12114042 |
+| Natasya Ate Malem Bangun  | 121140052 | Natasyaamb              |
+| Marchell Aly Kumala       | 121140145 | Marchell121140145       |
 
 ## Deskripsi
 BLUBY adalah filter video yang terinspirasi oleh suasana bawah laut, menghadirkan efek visual dan audio yang menenangkan seperti gelembung dan suara air laut. Program ini diproses dengan cara penggunan membuka kamera secara langsung. Sehingga memberikan pengalaman artistik yang interaktif dan unik. Adapun program ini menggunakan beberapa libary utama seperti:
