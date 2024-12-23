@@ -1,9 +1,26 @@
+#library yang digunakan
 import cv2
 import mediapipe as mp
 import math
 import time
 import random
 import numpy as np
+import pyaudio
+import scipy.signal as signal
+from pydub import AudioSegment
+from pydub.playback import play
+import threading
+
+# Constants
+SAMPLING_RATE = 44100
+CHUNK_SIZE = 1024
+FORMAT = pyaudio.paInt16
+CHANNELS = 1  # Mono audio
+LOW_PASS_CUT_OFF = 200  # Low pass filter cutoff fuency (Hz)
+Q_FACTOR = 0.71  # Quality factor for the low pass filter
+REVERB_EFFECT_MIX = 0.5  # Reverb effect mix (50%)
+REVERB_EFFECT_LEVEL = 8  # Level of reverb (in dB)
+DELAY = 0.03  # Small delay in seconds (e.g., 30ms)
 
 # Menonaktifkan log TensorFlow dan Mediapipe
 import os
@@ -75,20 +92,18 @@ class Bubble:
 
 # Apply the underwater effect with floating bubbles, blue tint, and wave distortion
 def add_underwater_effect(frame, bubbles, bubble_png, time_factor):
-    #fungsi efek distorsi laut 
+    #fungsi efek distorsi laut
     rows, cols, _ = frame.shape
-    distortion_map_x = np.tile(np.linspace(0, cols - 1, cols), (rows, 1)).astype(np.float32)
-    distortion_map_y = np.tile(np.linspace(0, rows - 1, rows), (cols, 1)).T.astype(np.float32)
+    distortion_map_x, distortion_map_y = np.meshgrid(np.arange(cols), np.arange(rows))
 
     random_shift = random.uniform(-5, 5)
 
-    sinusoid_x = 1 * np.sin((distortion_map_y / 100 + time_factor) + random_shift).astype(np.float32)
-    sinusoid_y = 1 * np.sin((distortion_map_x / 50 + time_factor) + random_shift).astype(np.float32)
+    distortion_map_x= distortion_map_x + 2 * np.sin(distortion_map_y / 60 + time_factor + random_shift)
+    distortion_map_y = distortion_map_y + 2 * np.sin(distortion_map_x / 40 + time_factor)
 
-    distortion_map_x += sinusoid_x
-    distortion_map_y += sinusoid_y
-    
-    frame = cv2.remap(frame, distortion_map_x, distortion_map_y, cv2.INTER_LINEAR)
+    distortion_map_x= np.clip(distortion_map_x, 0, cols-1).astype(np.float32)
+    distortion_map_y= np.clip(distortion_map_y, 0, rows-1).astype(np.float32)
+    frame = cv2.remap(frame, distortion_map_x, distortion_map_y, cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT_101)
 
     #fungsi efect biru laut 
     ocean_blue = frame.copy()
@@ -107,7 +122,7 @@ def add_underwater_effect(frame, bubbles, bubble_png, time_factor):
 
 #Fungsi untuk load video background
 def video():
-    background_video = cv2.VideoCapture('video3.mp4')
+    background_video = cv2.VideoCapture('video4.mp4')
 
     #Mencheck apakah video bisa dibuka atau tidak
     if not background_video.isOpened():
@@ -156,6 +171,63 @@ def add_background(frame, video_background):
     
     return frame_final.astype(np.uint8)
 
+# Create PyAudio instance
+p = pyaudio.PyAudio()
+
+# Load the MP3 file using pydub
+mp3_file = AudioSegment.from_mp3("underwater-ambience-heavy-rumbling-ftus-1-00-17.mp3")
+mp3_file = mp3_file.set_frame_rate(SAMPLING_RATE).set_channels(1).set_sample_width(2)  # Convert to mono, 16-bit
+
+# Low-pass filter function
+def low_pass_filter(data, cutoff, fs, Q):
+    nyquist = 0.5 * fs
+    normal_cutoff = cutoff / nyquist
+    b, a = signal.butter(1, normal_cutoff, btype='low', analog=False)
+    return signal.filtfilt(b, a, data)
+
+# Manual Reverb Effect (simple echo effect)
+def add_reverb(audio, mix, level, fs):
+    delay_samples = int(0.2 * fs)  # 200ms delay for reverb effect
+    reverb_audio = np.zeros_like(audio)
+    
+    reverb_audio[delay_samples:] = audio[:-delay_samples]
+    
+    return mix * reverb_audio + (1 - mix) * audio
+
+# Audio delay effect
+def apply_delay(audio, delay_time, fs):
+    delay_samples = int(delay_time * fs)
+    delayed_audio = np.zeros_like(audio)
+    delayed_audio[delay_samples:] = audio[:-delay_samples]
+    return audio + delayed_audio
+
+# Function to play the MP3 file in a separate thread
+def play_bubbling_sound():
+    while True:
+        play(mp3_file)  # This will loop the bubbling sound indefinitely
+
+# Stream callback function
+def callback(in_data, frame_count, time_info, status):
+    audio_data = np.frombuffer(in_data, dtype=np.int16).astype(np.float32)
+    filtered_audio = low_pass_filter(audio_data, LOW_PASS_CUT_OFF, SAMPLING_RATE, Q_FACTOR)
+    reverb_audio = add_reverb(filtered_audio, REVERB_EFFECT_MIX, REVERB_EFFECT_LEVEL, SAMPLING_RATE)
+    final_audio = apply_delay(reverb_audio, DELAY, SAMPLING_RATE)
+    out_data = final_audio.astype(np.int16).tobytes()
+    return (out_data, pyaudio.paContinue)
+
+# Open PyAudio stream
+stream = p.open(format=FORMAT,
+                channels=CHANNELS,
+                rate=SAMPLING_RATE,
+                input=True,
+                output=True,
+                frames_per_buffer=CHUNK_SIZE,
+                stream_callback=callback)
+
+# Start the MP3 playback thread
+bubbling_thread = threading.Thread(target=play_bubbling_sound)
+bubbling_thread.start()
+
 # Fungsi utama untuk menjalankan face mesh dengan deteksi mulut, efek gelembung, backgorund, dan efek suara
 def face_mesh_mouth_detection_with_bubbles():
     cap = cv2.VideoCapture(0)
@@ -166,7 +238,7 @@ def face_mesh_mouth_detection_with_bubbles():
     
     bubble_png = cv2.imread('gelembung2.png', cv2.IMREAD_UNCHANGED)
     background_video = video()
-    frame_shape = (480, 640, 3)  # Assuming a default frame shape, adjust as needed
+    frame_shape = (720, 1280)
     
     bubbles = [Bubble(random.randint(0, 640), random.randint(480, 500), 
                random.randint(5, 15), random.uniform(0.5, 3)) for _ in range(30)]
@@ -190,8 +262,8 @@ def face_mesh_mouth_detection_with_bubbles():
         
         if results.multi_face_landmarks:
             for face_landmarks in results.multi_face_landmarks:
-                mp_drawing.draw_landmarks(frame_with_bg, face_landmarks, 
-                                       mp_face_mesh.FACEMESH_CONTOURS)
+                #mp_drawing.draw_landmarks(frame_with_bg, face_landmarks, mp_face_mesh.FACEMESH_CONTOURS)
+                # code di atas untuk meanmpilkan landmark wajah pas oncam. Cuman untuk final code, di comment aja jadinya 
                 
                 landmarks = face_landmarks.landmark
                 if is_mouth_open(landmarks):
@@ -219,12 +291,20 @@ def face_mesh_mouth_detection_with_bubbles():
         time_factor += 0.1
         
         cv2.imshow("Face Mesh - Mouth Detection with Bubbles", underwater_frame)
-        
+    
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
+
+        if bubbling_thread is None or not bubbling_thread.is_alive():
+            stop_event.clear()
+            bubbling_thread= threading.Thread(target=play_audio, args=("underwater-ambience-heavy-rumbling-ftus-1-00-17.mp3", stop_event))
+            bubbling_thread.start()
     
     cap.release()
     cv2.destroyAllWindows()
+    stream.stop_stream()
+    stream.close()
+    p.terminate()
 
 # Jalankan program
 face_mesh_mouth_detection_with_bubbles()
