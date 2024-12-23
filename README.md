@@ -15,15 +15,15 @@ BLUBY adalah filter video yang terinspirasi oleh suasana bawah laut, menghadirka
 - Pydub: Untuk pemrosesan background suara.
 
 ## Fitur UTAMA 
-1. Efek Visual:
+**1. Efek Visual:**
 - Underwater effect, layaknya di dasar laut. Terdapat distorsi visual seperti gelombang air yang melengkung. 
 - Overlay partikel gelembung yang mengikuti gerakan wajah atau tubuh pengguna (dengan MediaPipe atau OpenCV).
 - Terdapat partikel gelembung yang bergerak dari atas kebawah.
 
-2. Efek Audio:
+**2. Efek Audio:**
 - Suara latar seperti gemericik air, gelembung, atau ombak lembut.
 
-3. Interaksi Real-Time:
+**3. Interaksi Real-Time:**
 - Input video dari webcam. 
 
 ## Hasil AKHIR 
