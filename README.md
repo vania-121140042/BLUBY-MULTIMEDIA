@@ -39,10 +39,10 @@
 
 ```bash
 # Clone repository
-git clone https://github.com/username/blurby-multimedia.git
+git clone https://github.com/username/bluby-multimedia.git
 
 # Install dependencies
-cd blurby-multimedia
+cd bluby-multimedia
 npm install
 
 # Run development server
