@@ -80,10 +80,9 @@ Bluby is an interactive video filter designed to simulate the ambiance of being 
 
 | **Name**                      | **NIM**      | **GitHub ID**               |
 |-------------------------------|--------------|-----------------------------|
-| Vania Angelica Kusuma P.N     | 121140042    | @vania-121140042  |
-| Natasya Ate Malem Bangun      | 121140052    | @Natasyaamb |
-| Marchell Aly Kumala           | 121140145    | @Marchell121140145 |
-
+| Vania Angelica Kusuma P.N     | 121140042    | [@vania-121140042](https://github.com/vania-121140042) |
+| Natasya Ate Malem Bangun      | 121140052    | [@Natasyaamb](https://github.com/Natasyaamb) |
+| Marchell Aly Kumala           | 121140145    | [@Marchell121140145](https://github.com/Marchell121140145) |
 ---
 
 ## 🤝 **Contributing**
