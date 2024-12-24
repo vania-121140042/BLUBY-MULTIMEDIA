@@ -13,6 +13,9 @@ BLUBY adalah filter video yang terinspirasi oleh suasana bawah laut, menghadirka
 - OpenCV: Untuk manipulasi video dan efek visual.
 - MediaPipe: Untuk mendeteksi wajah secara real-time.
 - Pydub: Untuk pemrosesan background suara.
+- Pyaudio: For real-time audio processing.
+- Scipy: For signal processing (e.g., low-pass filters).
+- Numpy: For numerical operations.
 
 ## Fitur Utama 
 **1. Efek Visual:**
@@ -21,7 +24,7 @@ BLUBY adalah filter video yang terinspirasi oleh suasana bawah laut, menghadirka
 - Terdapat partikel gelembung yang bergerak dari atas kebawah.
 
 **2. Efek Audio:**
-- Suara latar seperti gemericik air, gelembung, atau ombak lembut.
+Memutar suara ambiance di bawah air lalu meenerapkan pemfilteran low-pass, reverb, dan efek penundaan pada input audio untuk pengalaman yang imersif.
 
 **3. Interaksi Real-Time:**
 - Input video dari webcam. 
@@ -29,7 +32,11 @@ BLUBY adalah filter video yang terinspirasi oleh suasana bawah laut, menghadirka
 ## Hasil Akhir
 Filter video secara realtime dengan nuansa bawah laut yang menenangkan, efek visual yang dinamis, dan audio yang harmonis.
 
-# Instruksi instalasi
-
+# Requirements
+Persyaratan Sistem:
+Webcam untuk pengambilan video real-time.
+Mikrofon untuk input audio.
+File MP3 untuk suara latar belakang bawah air (underwater-ambience-heavy-rumbling-ftus-1-00-17.mp3).
+Gambar latar belakang dan gelembung (sea.jpg dan bubble.png).
 
 
