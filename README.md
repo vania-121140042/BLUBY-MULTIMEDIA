@@ -6,9 +6,10 @@
 ## 📅 Project Timeline
 
 ### Phase 1: Project Initialization
+```
 📍 Initial Release & Documentation - September 21, 2024
 📍 Project Proposal & Approval - December 5, 2024
-
+```
 ### Sprint Schedule
 
 | Sprint | Timeline | Objectives | Status |
