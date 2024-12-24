@@ -1,6 +1,7 @@
 # 📱 Bluby Multimedia Project
 
-> An innovative multimedia platform revolutionizing content delivery
+> Big Tasks for Multimedia Systems/Technology.
+> Lecturer  : Martin C.T. Manullang S.T., M.T.
 
 ## 📅 Project Timeline
 
