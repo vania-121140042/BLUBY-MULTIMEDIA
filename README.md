@@ -6,17 +6,17 @@
 ## 📅 Project Timeline
 
 ### Phase 1: Project Initialization
-- **September 21, 2024**: Initial project release & documentation
-- **December 5, 2024**: Project proposal submission & approval
+📍 Initial Release & Documentation - September 21, 2024
+📍 Project Proposal & Approval - December 5, 2024
 
-### Phase 2: Development Sprints
+### Sprint Schedule
 
-| Sprint | Date Range | Focus |
-|--------|------------|-------|
-| Sprint 1 | Nov 28 - Dec 5 | Project Setup & Architecture |
-| Sprint 2 | Dec 5 - Dec 12 | Core Features Development |
-| Sprint 3 | Dec 12 - Dec 19 | Integration & Testing |
-| Sprint 4 | Dec 19 - Dec 26 | Final Testing & Deployment |
+| Sprint | Timeline | Objectives | Status |
+|:------:|:--------:|:-----------|:------:|
+| `#1` | Nov 28 - Dec 5 | Project Setup & Architecture | 🏗️ |
+| `#2` | Dec 5 - Dec 12 | Core Features Development | 📚 |
+| `#3` | Dec 12 - Dec 19 | Integration & Testing | 🔄 |
+| `#4` | Dec 19 - Dec 26 | Final Testing & Deployment | 🎯 |
 
 ## 🚀 Features
 
