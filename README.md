@@ -1,8 +1,8 @@
 # 📱 Bluby Multimedia Project
-
+```
 > Big Tasks for Multimedia Systems/Technology.
 > Lecturer  : Martin C.T. Manullang S.T., M.T.
-
+```
 ## 📅 Project Timeline
 
 ### Phase 1: Project Initialization
