@@ -85,6 +85,24 @@ Bluby is an interactive video filter designed to simulate the ambiance of being 
 | Marchell Aly Kumala           | 121140145    | [@Marchell121140145](https://github.com/Marchell121140145) |
 ---
 
+<table>
+  <tr>
+    <td><img src="https://avatars.githubusercontent.com/u/113443626?v=4" alt="Made Redy Wijaya" width="50" height="50" style="border-radius: 50%;"></td>
+    <td>Made Redy Wijaya (121140157)</td>
+    <td><a href="https://github.com/redywi">@redywi</a></td>
+  </tr>
+  <tr>
+    <td><img src="https://avatars.githubusercontent.com/u/90200753?v=4" alt="Farhan Apri Kesuma" width="50" height="50" style="border-radius: 50%;"></td>
+    <td>Farhan Apri Kesuma (121140179)</td>
+    <td><a href="https://github.com/parhannn">@parhannn</a></td>
+  </tr>
+  <tr>
+    <td><img src="https://avatars.githubusercontent.com/u/100509735?v=4" alt="Carlos Piero Parhusip" width="50" height="50" style="border-radius: 50%;"></td>
+    <td>Carlos Piero Parhusip (121140193)</td>
+    <td><a href="https://github.com/gyoro2">@gyoro2</a></td>
+  </tr>
+</table>
+
 ## 🤝 **Contributing**
 1. Fork the repository.
 2. Create a feature branch.
