@@ -1,4 +1,4 @@
-# 📱 Blurby Multimedia Project
+# 📱 Bluby Multimedia Project
 
 > An innovative multimedia platform revolutionizing content delivery
 
