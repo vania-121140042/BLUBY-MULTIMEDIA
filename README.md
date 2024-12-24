@@ -1,42 +1,109 @@
-# TUGAS BESAR MULTIMEDIA IF4021
-**BLUBY – Oceanic Video Filter** 
+# 🌊 **Bluby - Oceanic Video Filter**
 
-## Anggota Kelompok 
-|         Nama Anggota      |    Nim    |         ID Github       |
-|---------------------------|-----------|------------------------ |
-| Vania Angelica Kusuma P.N | 121140042 | vania angelica_12114042 |
-| Natasya Ate Malem Bangun  | 121140052 | Natasyaamb              |
-| Marchell Aly Kumala       | 121140145 | Marchell121140145       |
+Welcome to **Bluby**, a mesmerizing multimedia project that brings the tranquility and magic of the underwater world to your screen. Created as part of the Big Task for Multimedia Systems/Technology (IF4021), this project seamlessly integrates real-time visual and audio effects inspired by the ocean.
 
-## Deskripsi
-BLUBY adalah filter video yang terinspirasi oleh suasana bawah laut, menghadirkan efek visual dan audio yang menenangkan seperti gelembung dan suara air laut. Program ini diproses dengan cara penggunan membuka kamera secara langsung. Sehingga memberikan pengalaman artistik yang interaktif dan unik. Adapun program ini menggunakan beberapa libary utama seperti:
-- OpenCV: Untuk manipulasi video dan efek visual.
-- MediaPipe: Untuk mendeteksi wajah secara real-time.
-- Pydub: Untuk pemrosesan background suara.
-- Pyaudio: For real-time audio processing.
-- Scipy: For signal processing (e.g., low-pass filters).
-- Numpy: For numerical operations.
+---
 
-## Fitur Utama 
-**1. Efek Visual:**
-- Underwater effect, layaknya di dasar laut. Terdapat distorsi visual seperti gelombang air yang melengkung. 
-- Overlay partikel gelembung yang mengikuti gerakan wajah atau tubuh pengguna (dengan MediaPipe atau OpenCV).
-- Terdapat partikel gelembung yang bergerak dari atas kebawah.
+## 📖 **About the Project**
+Bluby is an interactive video filter designed to simulate the ambiance of being underwater. Using cutting-edge technologies, Bluby offers:
+- **Visual Effects:** Real-time underwater distortion, dynamic bubble overlays, and wave-like animations.
+- **Audio Effects:** Immersive underwater ambiance with low-pass filters, reverb, and delay for a calming auditory experience.
 
-**2. Efek Audio:**
-Memutar suara ambiance di bawah air lalu meenerapkan pemfilteran low-pass, reverb, dan efek penundaan pada input audio untuk pengalaman yang imersif.
+---
 
-**3. Interaksi Real-Time:**
-- Input video dari webcam. 
+## 🚀 **Features**
 
-## Hasil Akhir
-Filter video secara realtime dengan nuansa bawah laut yang menenangkan, efek visual yang dinamis, dan audio yang harmonis.
+### 🎥 **Visual Effects:**
+- **Underwater Atmosphere:** Dynamic distortions resembling water waves.
+- **Bubble Effects:** Particles that move interactively with user gestures.
+- **Real-Time Processing:** Input via webcam for live video.
 
-# Requirements
-Persyaratan Sistem:
-Webcam untuk pengambilan video real-time.
-Mikrofon untuk input audio.
-File MP3 untuk suara latar belakang bawah air (underwater-ambience-heavy-rumbling-ftus-1-00-17.mp3).
-Gambar latar belakang dan gelembung (sea.jpg dan bubble.png).
+### 🎧 **Audio Effects:**
+- **Underwater Sound Ambiance:** Plays calming oceanic sounds.
+- **Low-Pass Filters:** Adds realism to the underwater experience.
 
+### 💻 **Interactivity:**
+- **Real-Time Interaction:** Seamlessly integrates visual and audio effects with webcam and microphone inputs.
+
+---
+
+## 🛠️ **Tech Stack**
+- **Programming Libraries:**
+  - OpenCV: Video manipulation and visual effects
+  - MediaPipe: Real-time facial detection
+  - Pydub & PyAudio: Audio processing
+  - Scipy & Numpy: Signal and numerical operations
+- **Infrastructure:** Node.js backend, AWS for deployment
+
+---
+
+## 📅 **Timeline & Development Phases**
+
+| **Sprint** | **Timeline**      | **Objectives**              | **Status** |
+|------------|-------------------|-----------------------------|------------|
+| Sprint #1  | Nov 28 - Dec 5    | Project Setup & Architecture | 🏗️ In Progress |
+| Sprint #2  | Dec 5 - Dec 12    | Core Features Development    | 📚 Pending    |
+| Sprint #3  | Dec 12 - Dec 19   | Integration & Testing         | 🔄 Pending    |
+| Sprint #4  | Dec 19 - Dec 26   | Final Testing & Deployment    | 🎯 Pending    |
+
+---
+
+## 📦 **Installation**
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/username/bluby-oceanic-filter.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd bluby-oceanic-filter
+   ```
+3. Install the dependencies:
+   ```bash
+   npm install
+   ```
+4. Run the development server:
+   ```bash
+   npm run dev
+   ```
+
+---
+
+## 🎨 **Preview**
+- **Webcam Integration:** Captures real-time input for video processing.
+- **Bubble Effects:** Dynamic particle overlays to enhance the user experience.
+- **Audio Processing:** Background ocean sounds for a serene ambiance.
+
+---
+
+## 👥 **Team Members**
+
+| **Name**                      | **NIM**      | **GitHub ID**               |
+|-------------------------------|--------------|-----------------------------|
+| Vania Angelica Kusuma P.N     | 121140042    | vania angelica_12114042     |
+| Natasya Ate Malem Bangun      | 121140052    | Natasyaamb                  |
+| Marchell Aly Kumala           | 121140145    | Marchell121140145           |
+
+---
+
+## 🤝 **Contributing**
+1. Fork the repository.
+2. Create a feature branch.
+3. Commit your changes.
+4. Push to the branch.
+5. Open a pull request for review.
+
+---
+
+## 📄 **License**
+This project is licensed under the MIT License - see the LICENSE.md file for details.
+
+---
+
+## 📢 **Credits**
+Developed with ❤️ by the Bluby Multimedia Team as part of the IF4021 course guided by **Martin C.T. Manullang, S.T., M.T.**.
+
+---
+
+### 🌊 Dive into the serene underwater experience with Bluby! 🌊
 
